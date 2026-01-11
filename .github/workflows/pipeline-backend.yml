@@ -49,9 +49,6 @@ jobs:
           java-version: 17
           distribution: 'corretto'
 
-      - name: Run tests with debug
-        run: ./mvnw test -X
-
       - name: Running Unit test
         run: |
           cd book-network

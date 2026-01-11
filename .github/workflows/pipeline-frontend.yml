@@ -20,6 +20,7 @@ jobs:
         uses: actions/checkout@v5
         with:
           fetch-depth: 0
+          submodules: false
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -55,6 +56,7 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/bsn-ui:latest,${{ secrets.DOCKERHUB_USERNAME }}/bsn-ui:${{ steps.extract_version.outputs.VERSION }}
 
   deploy:
+    environment: dev
     name: Deploy Frontend
     runs-on: [self-hosted,dev-deploy]
     needs: [ build-image ]

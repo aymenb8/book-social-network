@@ -24,7 +24,7 @@ jobs:
         id: extract_version
         run: |
           cd book-network-ui
-          echo "VERSION=$(jq -r '.version' package.json)" >> $GITHUB_OUTPUT
+          echo "VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
 
 
       - name: Set up Docker Buildx

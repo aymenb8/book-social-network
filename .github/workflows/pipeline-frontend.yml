@@ -28,8 +28,9 @@ jobs:
 
       - name: Extract project version
         id: extract_version
+        with:
+          context: book-network-ui
         run: |
-          cd book-network-ui
           VERSION=$(node -p 'require("./package.json").version')
           echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
 

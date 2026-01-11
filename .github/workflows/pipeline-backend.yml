@@ -129,7 +129,7 @@ jobs:
   deploy:
     environment: dev
     name: Deploy Backend
-    runs-on: [dev-deploy]
+    runs-on: [self-hosted,dev-deploy]
     needs: [build-image]
     steps:
       - name: Create deployment folder

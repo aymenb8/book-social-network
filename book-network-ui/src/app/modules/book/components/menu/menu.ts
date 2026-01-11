@@ -1,0 +1,34 @@
+import {Component, OnInit} from '@angular/core';
+import {RouterLink} from '@angular/router';
+
+@Component({
+  selector: 'app-menu',
+  imports: [
+    RouterLink
+  ],
+  templateUrl: './menu.html',
+  styleUrl: './menu.scss'
+})
+export class Menu implements OnInit {
+
+
+  ngOnInit(): void {
+      const linkColor = document.querySelectorAll('.nav-link');
+      linkColor.forEach(link => {
+        if(window.location.href.endsWith(link.getAttribute('routerLink') || '')){
+          link.classList.add('active');
+        }
+        link.addEventListener('click', (event) => {
+          linkColor.forEach( l => l.classList.remove('active'));
+          link.classList.add('active');
+        })
+      })
+  }
+
+
+
+  protected logout() {
+      localStorage.removeItem('token');
+      window.location.reload();
+  }
+}

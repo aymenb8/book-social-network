@@ -1,0 +1,111 @@
+<h2>My returned books</h2>
+<hr>
+@if (message() != ''){
+  <div class="alert"
+       [class.alert-danger]="level === 'error'"
+       [class.alert-success]="level === 'success'"
+  >
+    {{ message() }}
+  </div>
+}
+<div>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Author</th>
+      <th scope="col">ISBN</th>
+      <th scope="col">Rate</th>
+      <th scope="col"><i class="fas fa-cogs"></i> </th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (book of returnedBooks().content; track book.id ?? $index) {
+        <tr>
+          <th scope="row">{{ $index + 1 }}</th>
+          <td>{{ book.title }}</td>
+          <td>{{ book.authorName }}</td>
+          <td>{{ book.isbn }}</td>
+          <td><i class="fas fa-star text-warning"></i>{{ book.rate }}</td>
+          <td>
+            <div class="d-flex gap-2">
+              @if (book.returned){
+                <i class="fa-regular fa-paper-plane text-primary cursor-pointer"></i>
+              } @else {
+                <i class="fa-solid fa-paper-plane text-success cursor-pointer"></i>
+              }
+              <i class="fa-solid fa-circle-check cursor-pointer" (click)="approveBookReturn(book)" [class.text-success]="book.returnApproved"></i>
+            </div>
+          </td>
+        </tr>
+      }
+    <tr>
+
+    </tr>
+    </tbody>
+  </table>
+
+
+  <div class="d-flex justify-content-center mt-3">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item">
+          <a (click)="gotToFirstPage()"
+             class="page-link"
+             href="javascript:void(0)"
+             aria-label="previous"
+             [class.disabled]="page == 0"
+          >
+            <i class="fa-solid fa-angles-left"></i>
+          </a>
+        </li>
+        <li class="page-item">
+          <a (click)="gotToPreviousPage()"
+             class="page-link"
+             href="javascript:void(0)"
+             aria-label="previous"
+             [class.disabled]="page == 0"
+          >
+            <i class="fa-solid fa-angle-left"></i>
+          </a>
+        </li>
+        @for (_ of [].constructor(this.returnedBooks().totalPages); track pageIndex; let pageIndex = $index) {
+          <li class="page-item">
+            <a (click)="gotToPage(pageIndex)"
+               class="page-link"
+               href="javascript:void(0)"
+               aria-label="page {{ pageIndex + 1}}"
+               [class.active]="page == pageIndex"
+            >
+              {{ pageIndex + 1 }}
+            </a>
+          </li>
+        }
+
+        <li class="page-item">
+          <a (click)="gotToNextPage()"
+             class="page-link"
+             href="javascript:void(0)"
+             aria-label="next"
+             [class.disabled]="isLastPage"
+          >
+            <i class="fa-solid fa-chevron-right"></i>
+          </a>
+        </li>
+        <li class="page-item">
+          <a (click)="gotToLastPage()"
+             class="page-link"
+             href="javascript:void(0)"
+             aria-label="last"
+             [class.disabled]="isLastPage"
+          >
+            <i class="fa-solid fa-angles-right"></i>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+
+</div>

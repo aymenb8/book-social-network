@@ -1,0 +1,78 @@
+<h3>Books list</h3>
+<hr>
+@if (message() != ''){
+<div class="alert"
+     [class.alert-danger]="level === 'error'"
+     [class.alert-success]="level === 'success'"
+>
+    {{ message() }}
+</div>
+}
+  <div class="d-flex justify-content-start gap-2 flex-wrap">
+      @for (book of books().content; track book.id ?? $index) {
+        <app-book-card
+          [book]="book"
+          (borrow)="borrowBook($event)"
+        ></app-book-card>
+      }
+  </div>
+
+<div class="d-flex justify-content-center mt-3">
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      <li class="page-item">
+        <a (click)="gotToFirstPage()"
+           class="page-link"
+           href="javascript:void(0)"
+           aria-label="previous"
+           [class.disabled]="page == 0"
+        >
+          <i class="fa-solid fa-angles-left"></i>
+        </a>
+      </li>
+      <li class="page-item">
+        <a (click)="gotToPreviousPage()"
+           class="page-link"
+           href="javascript:void(0)"
+           aria-label="previous"
+           [class.disabled]="page == 0"
+        >
+          <i class="fa-solid fa-angle-left"></i>
+        </a>
+      </li>
+      @for (_ of [].constructor(this.books().totalPages); track pageIndex; let pageIndex = $index) {
+        <li class="page-item">
+          <a (click)="gotToPage(pageIndex)"
+             class="page-link"
+             href="javascript:void(0)"
+             aria-label="page {{ pageIndex + 1}}"
+             [class.active]="page == pageIndex"
+          >
+            {{ pageIndex + 1 }}
+          </a>
+        </li>
+      }
+
+      <li class="page-item">
+        <a (click)="gotToNextPage()"
+           class="page-link"
+           href="javascript:void(0)"
+           aria-label="next"
+           [class.disabled]="isLastPage"
+        >
+          <i class="fa-solid fa-chevron-right"></i>
+        </a>
+      </li>
+      <li class="page-item">
+        <a (click)="gotToLastPage()"
+           class="page-link"
+           href="javascript:void(0)"
+           aria-label="last"
+           [class.disabled]="isLastPage"
+        >
+          <i class="fa-solid fa-angles-right"></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>

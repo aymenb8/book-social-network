@@ -127,6 +127,7 @@ jobs:
 
 
   deploy:
+    environment: dev
     name: Deploy Backend
     runs-on: [dev-deploy]
     needs: [build-image]

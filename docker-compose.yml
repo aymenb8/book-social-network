@@ -17,7 +17,7 @@ services:
 
   bsn-api:
     container_name: bsn-api
-    image: bsn/bsn:1.0.3
+    image: edirect/bsn-api:latest
     ports:
       - 8089:8088
     networks:
@@ -27,7 +27,7 @@ services:
 
   bsn-ui:
     container_name: bsn-ui
-    image: bsn/bsn-ui:1.0.0
+    image: edirect/bsn-ui:latest
     ports:
       - 8080:80
     networks:
